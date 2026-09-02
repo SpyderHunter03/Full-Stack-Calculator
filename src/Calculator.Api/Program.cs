@@ -15,6 +15,7 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddSingleton<ICalculationStore, InMemoryCalculationStore>();
 builder.Services.AddScoped<ICalculator, Calculator.Api.Services.Calculator>();
+builder.Services.AddScoped<IDateTimeService, DateTimeService>();
 
 var app = builder.Build();
 

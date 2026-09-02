@@ -18,6 +18,29 @@ public sealed class CalculatorController(ICalculator calculator, ICalculationSto
         {
             return Ok(calculator.Calculate(request));
         }
+        catch (DivideByZeroException exception)
+        {
+            return BadRequest(new { error = exception.Message });
+        }
+        catch (ArgumentException exception)
+        {
+            return BadRequest(new { error = exception.Message });
+        }
+    }
+
+    [HttpDelete("{id:guid?}")]
+    public ActionResult Clear(Guid? id)
+    {
+        try
+        {
+            if (id is null)
+            {
+                store.Clear();
+                return Ok();
+            }
+            store.Clear(id.Value);
+            return Ok();
+        }
         catch (ArgumentException exception)
         {
             return BadRequest(new { error = exception.Message });
