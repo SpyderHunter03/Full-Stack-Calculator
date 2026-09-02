@@ -12,6 +12,7 @@ function App() {
   }
 
   const calculate = async () => {
+    //Match: #.# (+ \ - * %) #.#
     const expression = display.match(/^(-?\d+(?:\.\d+)?)([+\-*/%])(-?\d+(?:\.\d+)?)$/)
     if (!expression) return
   
