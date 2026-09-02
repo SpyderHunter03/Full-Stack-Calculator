@@ -58,7 +58,6 @@ public sealed class CalculatorTests
 
     [Theory]
     [InlineData("^")]
-    [InlineData("/")]
     public void Calculate_throws_for_unsupported_operations(string operation)
     {
         var calculator = new Calculator.Api.Services.Calculator(
@@ -67,6 +66,19 @@ public sealed class CalculatorTests
 
         Assert.Throws<ArgumentException>(() =>
             calculator.Calculate(new CalculationRequest(2, operation == "/" ? 0 : 3, operation)));
+    }
+
+    [Fact]
+    public void Calculate_throws_a_specific_error_for_division_by_zero()
+    {
+        var calculator = new Calculator.Api.Services.Calculator(
+            new InMemoryCalculationStore(),
+            new FixedDateTimeService());
+
+        var exception = Assert.Throws<DivideByZeroException>(() =>
+            calculator.Calculate(new CalculationRequest(2, 0, "/")));
+
+        Assert.Equal("Cannot divide by zero.", exception.Message);
     }
 
     private sealed class FixedDateTimeService(DateTimeOffset? value = null) : IDateTimeService

@@ -12,6 +12,7 @@ public sealed class Calculator(ICalculationStore store, IDateTimeService dateTim
             "-" => request.Left - request.Right,
             "*" => request.Left * request.Right,
             "/" when request.Right != 0 => request.Left / request.Right,
+            "/" => throw new DivideByZeroException("Cannot divide by zero."),
             "%" => request.Left % request.Right,
             _ => throw new ArgumentException("Unsupported operation.", nameof(request))
         };

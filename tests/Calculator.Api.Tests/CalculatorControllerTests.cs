@@ -45,6 +45,18 @@ public sealed class CalculatorControllerTests
     }
 
     [Fact]
+    public void Calculate_returns_the_division_by_zero_message()
+    {
+        var controller = new CalculatorController(new DivideByZeroCalculator(), new InMemoryCalculationStore());
+
+        var result = controller.Calculate(new CalculationRequest(2, 0, "/"));
+
+        var response = Assert.IsType<BadRequestObjectResult>(result.Result);
+        var error = Assert.IsType<string>(response.Value?.GetType().GetProperty("error")?.GetValue(response.Value));
+        Assert.Equal("Cannot divide by zero.", error);
+    }
+
+    [Fact]
     public void Clear_with_an_id_deletes_one_calculation_and_returns_ok()
     {
         var store = new InMemoryCalculationStore();
@@ -81,5 +93,11 @@ public sealed class CalculatorControllerTests
     {
         public CalculationResult Calculate(CalculationRequest request) =>
             throw new ArgumentException("Unsupported operation.");
+    }
+
+    private sealed class DivideByZeroCalculator : ICalculator
+    {
+        public CalculationResult Calculate(CalculationRequest request) =>
+            throw new DivideByZeroException("Cannot divide by zero.");
     }
 }

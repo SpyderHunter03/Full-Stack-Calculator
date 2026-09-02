@@ -9,8 +9,10 @@ function App() {
   const [display, setDisplay] = useState('0')
   const [historyRefreshKey, setHistoryRefreshKey] = useState(0)
   const [justCalculated, setJustCalculated] = useState(false)
+  const [error, setError] = useState<string | undefined>()
 
   const appendDigit = (digit: string) => {
+    setError(undefined)
     if (justCalculated) {
       setDisplay(digit)
       setJustCalculated(false)
@@ -20,6 +22,7 @@ function App() {
   }
 
   const appendOperator = (operator: string) => {
+    setError(undefined)
     if (justCalculated) {
       setJustCalculated(false)
     }
@@ -32,22 +35,31 @@ function App() {
     if (!expression) return
   
     const [, left, operator, right] = expression
-    const calculatedValue = await calculateExpression(left, operator, right)
-    if (calculatedValue !== undefined) {
-      setDisplay(calculatedValue)
-      setHistoryRefreshKey((current) => current + 1)
-      setJustCalculated(true)
+    try {
+      const calculatedValue = await calculateExpression(left, operator, right)
+      if (calculatedValue !== undefined) {
+        setDisplay(calculatedValue)
+        setHistoryRefreshKey((current) => current + 1)
+        setJustCalculated(true)
+      }
+      setError(undefined)
+    } catch (calculationError) {
+      setError(calculationError instanceof Error
+        ? calculationError.message
+        : 'The calculation could not be completed.')
     }
   }
 
   const clearDisplay = () => {
     setDisplay('0')
+    setError(undefined)
   }
 
   const clearHistory = async () => {
     const cleared = await clearAllCalculations()
     if (cleared) {
       setDisplay('0')
+      setError(undefined)
       setHistoryRefreshKey((current) => current + 1)
     }
   }
@@ -61,6 +73,7 @@ function App() {
       </header>
       <section className="calculator" aria-label="Calculator">
         <output className="display" aria-label="Current value">{display}</output>
+        {error && <p className="calculation-error" role="alert">{error}</p>}
         <div className="keypad">
           <CalcNumber   value="7"     placement={{ column: 1, row: 1 }} onClick={appendDigit} />
           <CalcNumber   value="8"     placement={{ column: 2, row: 1 }} onClick={appendDigit} />
@@ -76,7 +89,7 @@ function App() {
           <CalcNumber   value="2"     placement={{ column: 2, row: 3 }} onClick={appendDigit} />
           <CalcNumber   value="3"     placement={{ column: 3, row: 3 }} onClick={appendDigit} />
           <CalcOperator operator="-"  placement={{ column: 4, row: 3 }} onClick={appendDigit} />
-          <CalcOperator operator="AC"  placement={{ column: 5, row: 3 }} onClick={appendDigit} />
+          <CalcOperator operator="AC"  placement={{ column: 5, row: 3 }} onClick={clearHistory} />
           <CalcNumber   value="0"     placement={{ column: 1, row: 4 }} onClick={appendDigit} />
           <CalcNumber   value="."     placement={{ column: 2, row: 4 }} onClick={appendDigit} />
           <CalcOperator operator="+"  placement={{ column: 3, row: 4 }} onClick={appendDigit} />
