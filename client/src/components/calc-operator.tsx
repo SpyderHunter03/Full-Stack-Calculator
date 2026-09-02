@@ -1,13 +1,22 @@
 import '../App.css'
+import type { GridPlacement } from './calc-number';
+import CalcNumber from './calc-number';
 
-type GridPlacement = { column: number; row: number }
+type CalcOperatorProps = {
+  operator: string;
+  placement: GridPlacement;
+  onClick: (operator: string) => void;
+}
 
-function CalcOperator({ operator, placement, onClick }: { operator: string; placement: GridPlacement; onClick: (operator: string) => void }) {
+function CalcOperator({ operator, placement, onClick }: CalcOperatorProps) {
 
   return (
-    <button className="operator" type="button" style={{ gridColumn: placement.column, gridRow: placement.row }} onClick={() => onClick(operator)}>
-      {operator}
-    </button>
+    <CalcNumber
+      value={operator}
+      placement={placement}
+      onClick={onClick}
+      className="operator"
+    />
   )
 }
 

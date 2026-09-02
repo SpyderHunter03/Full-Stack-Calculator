@@ -27,6 +27,7 @@ function App() {
   }
 
   const calculate = async () => {
+    //Match: #.# (+ \ - * %) #.#
     const expression = display.match(/^(-?\d+(?:\.\d+)?)([+\-*/%])(-?\d+(?:\.\d+)?)$/)
     if (!expression) return
   
@@ -74,12 +75,12 @@ function App() {
           <CalcNumber   value="1"     placement={{ column: 1, row: 3 }} onClick={appendDigit} />
           <CalcNumber   value="2"     placement={{ column: 2, row: 3 }} onClick={appendDigit} />
           <CalcNumber   value="3"     placement={{ column: 3, row: 3 }} onClick={appendDigit} />
-          <CalcOperator operator="-"  placement={{ column: 4, row: 3 }} onClick={appendOperator} />
-          <CalcOperator operator="AC" placement={{ column: 5, row: 3 }} onClick={clearHistory} />
+          <CalcOperator operator="-"  placement={{ column: 4, row: 3 }} onClick={appendDigit} />
+          <CalcOperator operator="AC"  placement={{ column: 5, row: 3 }} onClick={appendDigit} />
           <CalcNumber   value="0"     placement={{ column: 1, row: 4 }} onClick={appendDigit} />
           <CalcNumber   value="."     placement={{ column: 2, row: 4 }} onClick={appendDigit} />
-          <CalcOperator operator="="  placement={{ column: 3, row: 4 }} onClick={calculate} />
-          <CalcOperator operator="+"  placement={{ column: 4, row: 4 }} onClick={appendOperator} />
+          <CalcOperator operator="+"  placement={{ column: 3, row: 4 }} onClick={appendDigit} />
+          <CalcOperator operator="="  placement={{ column: 4, row: 4, columnSpan: 2 }} onClick={calculate} />
         </div>
       </section>
       <CalculationHistory refreshKey={historyRefreshKey} onSelect={(value: any) => setDisplay((disp) => disp + String(value))} />
