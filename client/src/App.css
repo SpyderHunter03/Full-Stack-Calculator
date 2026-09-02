@@ -6,9 +6,9 @@ header { max-width: 620px; }
 .eyebrow { color: #d16b42; font: 500 12px/1 'DM Mono', monospace; letter-spacing: .12em; }
 h1 { color: #17313a; font-size: clamp(42px, 8vw, 82px); line-height: .96; margin: 22px 0 16px; }
 .subtitle { color: #53666a; font-size: 19px; }
-.calculator { background: #17313a; border-radius: 8px; box-shadow: 14px 14px 0 #e5b85c; margin: 64px auto 34px; max-width: 480px; padding: 24px; }
+.calculator { background: #17313a; border-radius: 8px; box-shadow: 14px 14px 0 #e5b85c; margin: 64px auto 34px; max-width: 100%; overflow-x: auto; padding: 24px; width: max-content; }
 .display { background: #f4f0e8; border-radius: 4px; color: #17313a; display: block; font: 500 38px/1.2 'DM Mono', monospace; margin-bottom: 18px; min-height: 46px; overflow: hidden; padding: 14px 16px; text-align: right; }
-.keypad { display: grid; gap: 10px; grid-template-columns: repeat(4, 1fr); }
+.keypad { --button-size: 64px; display: grid; gap: 10px; grid-auto-columns: var(--button-size); grid-template-columns: repeat(4, var(--button-size)); width: max-content; }
 button { background: #31535c; border: 0; border-radius: 4px; color: #f4f0e8; cursor: pointer; font: 500 20px/1 'DM Mono', monospace; min-height: 64px; transition: transform .15s, background .15s; }
 button:hover { background: #4a7078; transform: translateY(-2px); }
 button.operator { background: #d16b42; }
