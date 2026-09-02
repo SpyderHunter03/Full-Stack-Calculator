@@ -18,7 +18,7 @@ public sealed class CalculatorTests
     public void Calculate_Adds_two_numbers_and_stores_the_result()
     {
         var store = new InMemoryCalculationStore();
-        var calculator = new Calculator.Api.Services.Calculator(store, new DateTimeService());
+        var calculator = new Calculator.Api.Services.Calculator(store, new FixedDateTimeService());
 
         var result = calculator.Calculate(new CalculationRequest(2, 3, "+"));
 
