@@ -15,6 +15,19 @@ button.operator { background: #d16b42; }
 button.operator:hover { background: #ed8051; }
 .status { color: #53666a; font: 13px/1.5 'DM Mono', monospace; text-align: center; }
 .status span { background: #5d9c73; border-radius: 50%; display: inline-block; height: 8px; margin-right: 8px; width: 8px; }
+.calculation-history { margin: 0 auto; max-width: 480px; width: 100%; }
+.history-heading { align-items: baseline; display: flex; justify-content: space-between; margin-bottom: 14px; }
+.history-heading h2 { color: #17313a; font-size: 20px; margin: 0; }
+.calculation-history ol { list-style: none; margin: 0; max-height: 330px; overflow-y: auto; padding: 0; }
+.calculation-history li { align-items: center; border-bottom: 1px solid #d9d5ca; display: flex; justify-content: space-between; padding: 14px 0; }
+.calculation-history .history-item { cursor: pointer; }
+.calculation-history .history-item:hover, .calculation-history .history-item:focus-visible { background: #eee8db; outline: none; }
+.calculation-history strong { color: #17313a; font: 500 20px 'DM Mono', monospace; }
+.history-meta { align-items: center; display: flex; gap: 8px; }
+.calculation-history time, .history-empty { color: #53666a; font: 12px 'DM Mono', monospace; }
+.history-empty { border-bottom: 1px solid #d9d5ca; margin: 0; padding: 14px 0; }
+.calculation-history .history-delete { background: transparent; color: #d16b42; font: 500 12px/1 'DM Mono', monospace; min-height: auto; padding: 4px 6px; width: auto; }
+.calculation-history .history-delete:hover { background: #f1ddd3; transform: none; }
 
 @media (max-width: 600px) { .app-shell { padding-top: 42px; width: min(100% - 32px, 480px); } .calculator { margin-top: 42px; padding: 16px; } button { min-height: 56px; } }
 

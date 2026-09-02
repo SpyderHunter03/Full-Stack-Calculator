@@ -6,4 +6,6 @@ public interface ICalculationStore
 {
     void Add(CalculationResult result);
     IReadOnlyCollection<CalculationResult> GetAll();
+    void Clear(Guid id);
+    void Clear();
 }
