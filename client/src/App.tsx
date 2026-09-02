@@ -50,11 +50,11 @@ function App() {
           <CalcNumber   value="2"     placement={{ column: 2, row: 3 }} onClick={appendDigit} />
           <CalcNumber   value="3"     placement={{ column: 3, row: 3 }} onClick={appendDigit} />
           <CalcOperator operator="-"  placement={{ column: 4, row: 3 }} onClick={appendDigit} />
+          <CalcOperator operator="AC"  placement={{ column: 5, row: 3 }} onClick={appendDigit} />
           <CalcNumber   value="0"     placement={{ column: 1, row: 4 }} onClick={appendDigit} />
           <CalcNumber   value="."     placement={{ column: 2, row: 4 }} onClick={appendDigit} />
-          <CalcOperator operator="="  placement={{ column: 3, row: 4 }} onClick={calculate} />
-          <CalcOperator operator="+"  placement={{ column: 4, row: 4 }} onClick={appendDigit} />
-          
+          <CalcOperator operator="+"  placement={{ column: 3, row: 4 }} onClick={appendDigit} />
+          <CalcOperator operator="="  placement={{ column: 4, row: 4, columnSpan: 2 }} onClick={calculate} />
         </div>
       </section>
     </main>

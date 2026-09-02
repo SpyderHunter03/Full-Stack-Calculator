@@ -1,6 +1,11 @@
 import '../App.css'
 
-export type GridPlacement = { column: number; row: number }
+export type GridPlacement = {
+  column: number;
+  row: number,
+  columnSpan?: number,
+  rowSpan?: number
+}
 
 type CalcNumberProps = {
   value: string
@@ -10,9 +15,18 @@ type CalcNumberProps = {
 }
 
 function CalcNumber({ value, placement, onClick, className }: CalcNumberProps) {
+  const { column, row, columnSpan = 1, rowSpan = 1 } = placement
 
   return (
-    <button type="button" style={{ gridColumn: placement.column, gridRow: placement.row }} onClick={() => onClick(value)} className={className}>
+    <button
+      type="button"
+      style={{
+        gridColumn: `${column} / span ${columnSpan}`,
+        gridRow: `${row} / span ${rowSpan}`,
+      }}
+      onClick={() => onClick(value)}
+      className={className}
+    >
       {value}
     </button>
   )
